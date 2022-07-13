@@ -30,6 +30,31 @@ int ninjaTraining(int n, vector<vector<int>> &points)
     return dfs(n-1,3,points,dp);
 }
 
+//My Solution for the above DP - just a little smaller else everything is same
+#include<bits/stdc++.h>
+int func(int idx,vector<vector<int>> &points,int last,vector<vector<int>> &dp){
+    if(idx<0){
+        return 0;
+    }
+    if(dp[idx][last]!=-1){
+        return dp[idx][last];
+    }
+    int mx=INT_MIN;
+    for(int i=0;i<3;i++){
+        if(i!=last){
+            int ans=points[idx][i]+func(idx-1,points,i,dp);
+            mx=max(mx,ans);
+        }
+    }
+    return dp[idx][last]=mx;
+}
+int ninjaTraining(int n, vector<vector<int>> &points)
+{
+    // Write your code here.
+    vector<vector<int>> dp(n,vector<int>(4,-1));
+    return func(n-1,points,3,dp);
+}
+
 //Bottom Up
 int ninjaTraining(int n, vector<vector<int>> &points)
 {
