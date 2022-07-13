@@ -1,25 +1,50 @@
 //Youtube Link:- https://www.youtube.com/watch?v=mLfjzJsN8us&list=PLgUwDviBIf0qUlt5H_kiKYaNSqJ81PMMY&index=3
-//Problem Link:- https://www.codingninjas.com/codestudio/problems/count-ways-to-reach-nth-stairs_798650?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos
-#include<bits/stdc++.h>
-int dp(long long currStep,long long nStairs,int *dp1){
-    if(currStep>nStairs){
-        return 0;
+//Problem Link:- https://leetcode.com/problems/climbing-stairs/
+//Bottom Up Approach
+class Solution {
+public:
+    int func(int n,vector<int> &dp){
+        if(n==0){
+            return 1;
+        }
+        if(n<0){
+            return 0;
+        }
+        if(dp[n]!=-1){
+            return dp[n];
+        }
+        int left=func(n-1,dp);
+        int right=func(n-2,dp);
+        
+        return dp[n]=left+right;
     }
-    if(dp1[currStep]!=-1){
-        return dp1[currStep];
+    int climbStairs(int n) {
+        vector<int> dp(n+1,-1);
+        return func(n,dp);
     }
-    if(currStep==nStairs){
-        return 1;
+};
+
+//Top Down Approach or Tabulation to save the stack space of recursion
+class Solution {
+public:
+    int climbStairs(int n) {
+        vector<int> dp(n+1,0);
+        for(int i=0;i<=n;i++){
+            if(i==0){
+                dp[0]=1;
+            }
+            else{
+                int left=0;
+                if(i-1>=0){
+                    left=dp[i-1];
+                }
+                int right=0;
+                if(i-2>=0){
+                    right=dp[i-2];
+                }
+                dp[i]=right+left;
+            }
+        }
+        return dp[n];
     }
-    
-    int oneStep=dp(currStep+1,nStairs,dp1);
-    int twoStep=dp(currStep+2,nStairs,dp1);
-    
-    return dp1[currStep]=oneStep+twoStep;
-}
-int countDistinctWayToClimbStair(long long nStairs)
-{
-    int dp1[nStairs+1];
-    memset(dp1,-1,sizeof(dp1));
-    return dp(0,nStairs,dp1);
-}
+};
