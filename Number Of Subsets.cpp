@@ -3,11 +3,11 @@
 
 //Bottom Up Approach
 int dfs(int idx,vector<int> &nums,vector<vector<int>> &dp,int target){
-    if(target==0){
-        return 1;
-    }
     if(idx==0){
-        if(nums[0]==target){
+        if(sum==0 and arr[0]==0){
+            return 2;
+        }
+        if(sum==0 or sum==arr[0]){
             return 1;
         }
         return 0;
