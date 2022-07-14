@@ -54,26 +54,6 @@ int findWays(vector<int> &num, int tar)
 }
 
 //Space Optimisation of top down approach
-// int dfs(int idx,vector<int> &nums,vector<vector<int>> &dp,int target){
-//     if(target==0){
-//         return 1;
-//     }
-//     if(idx==0){
-//         if(nums[0]==target){
-//             return 1;
-//         }
-//         return 0;
-//     }
-//     if(dp[idx][target]!=-1){
-//         return dp[idx][target];
-//     }
-//     int ntake=dfs(idx-1,nums,dp,target);
-//     int take=0;
-//     if(target>=nums[idx]){
-//         take=dfs(idx-1,nums,dp,target-nums[idx]);
-//     }
-//     return dp[idx][target]=ntake+take;
-// }
 int findWays(vector<int> &num, int tar)
 {
     int n=num.size();
