@@ -65,3 +65,23 @@ int knapsack(vector<int> wt, vector<int> val, int n, int maxWeight)
     }
     return prev[maxWeight];
 }
+
+//Space Optimisation:- Single Array
+int knapsack(vector<int> wt, vector<int> val, int n, int maxWeight) 
+{
+    vector<int> prev(maxWeight+1,0);
+    for(int i=wt[0];i<=maxWeight;i++){
+        prev[i]=val[0];
+    }
+    for(int idx=1;idx<n;idx++){
+        for(int W=maxWeight;W>=0;W--){
+            int ntake=prev[W];
+            int take=INT_MIN;
+            if(wt[idx]<=W){
+                take=val[idx]+prev[W-wt[idx]];
+            }
+            prev[W]=max(take,ntake); 
+        }
+    }
+    return prev[maxWeight];
+}
