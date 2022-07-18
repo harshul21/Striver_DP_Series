@@ -82,3 +82,37 @@ public:
         return maxi;
     }
 };
+
+//Printing the subsequence
+#include<bits/stdc++.h>
+int longestIncreasingSubsequence(int arr[], int n)
+{
+    vector<int> dp(n,-1), hash(n);
+    int maxi=1;
+    int lastIndex=0;
+    for(int i=0;i<n;i++){
+        hash[i]=i;
+        for(int prev=0;prev<i;prev++){
+            if(arr[prev]<arr[i] and 1+dp[prev]>dp[i]){
+                dp[i]=1+dp[prev];
+                hash[i]=prev;
+            }
+        }
+        if(dp[i]>maxi){
+            maxi=dp[i];
+            lastIndex=i;
+        }
+    }
+    vector<int> tmp;
+    tmp.push_back(arr[lastIndex]);
+    while(hash[lastIndex]!=lastIndex){
+        lastIndex=hash[lastIndex];
+        tmp.push_back(arr[lastIndex]);
+    }
+    reverse(tmp.begin(),tmp.end());
+    for(auto it:tmp){
+        cout<<it<<" ";
+    }
+    return maxi;
+}
+
